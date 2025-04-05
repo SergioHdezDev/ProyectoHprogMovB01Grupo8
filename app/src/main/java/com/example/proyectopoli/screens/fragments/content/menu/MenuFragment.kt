@@ -31,6 +31,7 @@ fun MenuFragment(
     val menuItems = listOf(
         MenuItem(id = "perfil", title = "Perfil", icon = Icons.Default.AccountCircle),
         MenuItem(id = "fotos", title = "Fotos", icon = Icons.Default.Image),
+        MenuItem(id = "fotos_detalle", title = "Fotos_detalle", icon = Icons.Default.Image),
         MenuItem(id = "videos", title = "Videos", icon = Icons.Default.Videocam),
         MenuItem(id = "web", title = "Web", icon = Icons.Default.Language),
         MenuItem(id = "botones", title = "Botones", icon = Icons.Default.RadioButtonChecked)
