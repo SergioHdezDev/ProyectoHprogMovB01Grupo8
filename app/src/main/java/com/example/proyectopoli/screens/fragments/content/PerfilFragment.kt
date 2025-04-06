@@ -22,7 +22,7 @@ import com.example.proyectopoli.R
 
 @Composable
 fun PerfilFragment() {
-    val backgroundColor = Color(0xFF6A42F4) // Color púrpura
+    val backgroundColor = Color(0xFF6A42F4)
 
     Scaffold(
         topBar = { CustomTopAppBar(backgroundColor) },
