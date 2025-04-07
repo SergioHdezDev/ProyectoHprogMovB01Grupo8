@@ -1,5 +1,6 @@
 package com.example.proyectopoli.navigation
 
+
 import androidx.compose.runtime.Composable
 import com.example.proyectopoli.screens.fragments.content.BotonesFragment
 import com.example.proyectopoli.screens.fragments.content.DetailPhotoFragment
@@ -20,3 +21,4 @@ fun ContentNavigation(selectedOption: String) {
         else -> PerfilFragment()
     }
 }
+

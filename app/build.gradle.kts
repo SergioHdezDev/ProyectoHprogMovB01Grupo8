@@ -70,5 +70,6 @@ dependencies {
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
     implementation("androidx.compose.material3:material3:1.1.2")
+    implementation("com.kizitonwose.calendar:view:2.0.0")
 }
 
