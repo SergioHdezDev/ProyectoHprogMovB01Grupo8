@@ -71,5 +71,7 @@ dependencies {
     debugImplementation(libs.ui.test.manifest)
     implementation("androidx.compose.material3:material3:1.1.2")
     implementation("com.kizitonwose.calendar:view:2.0.0")
+    implementation("androidx.media3:media3-exoplayer:1.2.1")
+    implementation("androidx.media3:media3-ui:1.2.1")
 }
 
