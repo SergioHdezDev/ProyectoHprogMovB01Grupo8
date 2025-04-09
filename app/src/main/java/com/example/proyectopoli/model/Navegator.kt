@@ -19,6 +19,16 @@ class Navegator : AppCompatActivity () {
                 return true
             }
         }
+
+        miVisorWeb.loadUrl("https://www.google.com")
+        miVisorWeb.settings.javaScriptEnabled = true
+        miVisorWeb.settings.allowContentAccess = true
+        miVisorWeb.settings.setSupportZoom(true)
+        miVisorWeb.settings.domStorageEnabled = true
+        miVisorWeb.settings.useWideViewPort = true
+        miVisorWeb.settings.setAppCacheEnabled(true)
+
+
     }
 
 }
