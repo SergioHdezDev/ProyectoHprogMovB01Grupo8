@@ -4,6 +4,17 @@ import com.example.proyectopoli.model.CardPhoto
 
 const val INFO_APP = "INFO-APP"
 
+fun formatUrl(url:String): String {
+    val formattedUrl =
+        if (!url.startsWith("http://") &&
+            !url.startsWith("https://")) {
+            "https://$url"
+        } else {
+            url
+        }
+    return formattedUrl
+}
+
 fun generateDatePhotos(start: Int): List<CardPhoto> {
     val photos = listOf(
         CardPhoto(
@@ -11,7 +22,7 @@ fun generateDatePhotos(start: Int): List<CardPhoto> {
             title = "Sentadillas",
             description = "Fortalece piernas y glúteos con este ejercicio básico.",
             img = "sentadilla",
-            duration = 15.0,
+            duration = 12.0,
             status = false,
             instruction = "Coloca los pies al ancho de los hombros y baja como si te sentaras en una silla.",
             calories = 50

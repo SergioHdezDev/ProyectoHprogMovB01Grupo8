@@ -23,6 +23,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -38,18 +39,18 @@ import androidx.compose.ui.unit.dp
 import com.example.proyectopoli.R
 import com.example.proyectopoli.constants.INFO_APP
 import com.example.proyectopoli.constants.generateDatePhotos
+import kotlinx.coroutines.delay
 
 @Composable
 fun DetailPhotoFragment() {
-
-    //, exerciseSelect: String?
-    // val exerciseSelect = Gson().fromJson(exerciseSelect, CardPhoto::class.java)
-    // ${exerciseSelect.title}
-
-    val detail = generateDatePhotos(0)[0];
+    val detail = generateDatePhotos(0)[0]
+    detail.status = false
     val context = LocalContext.current
     val imageResId = context.resources.getIdentifier(detail.img, "drawable", context.packageName)
     var iconHeart by remember { mutableIntStateOf(if (detail.status) R.drawable.heart else R.drawable.heart_disable) }
+
+    var timeLeft by remember { mutableStateOf(0) }
+    var isCountingDown by remember { mutableStateOf(false) }
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column {
@@ -61,7 +62,7 @@ fun DetailPhotoFragment() {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "${detail.title}",
+                    text = detail.title,
                     style = MaterialTheme.typography.headlineSmall
                 )
                 Row {
@@ -73,9 +74,9 @@ fun DetailPhotoFragment() {
                             .size(30.dp)
                             .clickable {
                                 iconHeart =
-                                    if (detail.status) R.drawable.heart else R.drawable.heart_disable
+                                    if (detail.status) R.drawable.heart_disable else R.drawable.heart
                                 detail.status = !detail.status
-                                Log.w(INFO_APP,"Validator ${detail.status}")
+                                Log.w(INFO_APP, "Validator ${detail.status}")
                             }
                     )
                     Spacer(modifier = Modifier.width(16.dp))
@@ -89,7 +90,7 @@ fun DetailPhotoFragment() {
             if (imageResId != 0) {
                 Image(
                     painter = painterResource(id = imageResId),
-                    contentDescription = "Imagen del ejercicio $detail.title",
+                    contentDescription = "Imagen del ejercicio ${detail.title}",
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(250.dp),
@@ -98,7 +99,7 @@ fun DetailPhotoFragment() {
             } else {
                 Image(
                     painter = painterResource(id = R.drawable.not_found),
-                    contentDescription = "Imagen del ejercicio $detail.title",
+                    contentDescription = "Imagen del ejercicio ${detail.title}",
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(350.dp),
@@ -124,7 +125,7 @@ fun DetailPhotoFragment() {
                 )
                 Spacer(modifier = Modifier.height(20.dp))
                 Text(
-                    text = "${detail.instruction}",
+                    text = detail.instruction,
                     style = MaterialTheme.typography.bodyMedium,
                     color = Color.DarkGray
                 )
@@ -157,21 +158,30 @@ fun DetailPhotoFragment() {
                 }
                 Button(
                     onClick = {
-                        Log.w(INFO_APP, "Iniciar contador")
+                        timeLeft = detail.duration.toInt()
+                        isCountingDown = true
                     },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.Transparent
-                    ),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                     shape = RoundedCornerShape(12.dp),
                     border = BorderStroke(1.dp, Color.Blue)
                 ) {
                     Text(
-                        text = "Iniciar Entrenamiento",
+                        text = if (isCountingDown) "Tiempo restante: $timeLeft" else "Iniciar Entrenamiento",
                         color = Color.Blue,
                         style = MaterialTheme.typography.bodyLarge
                     )
                 }
             }
+        }
+    }
+
+    if (isCountingDown) {
+        LaunchedEffect(Unit) {
+            while (timeLeft > 0) {
+                delay(1000)
+                timeLeft--
+            }
+            isCountingDown = false
         }
     }
 }
